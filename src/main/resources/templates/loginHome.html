@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css"
+        th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>홈 화면</h2>
+    </div>
+
+    <h4 class="mb-3" th:text="|로그인: ${member.name}|"></h4>
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <button type="button"
+                    class="w-100 btn btn-primary btn-lg"
+                    th:onclick="|location.href='@{/items}'|">상품 관리
+            </button>
+        </div>
+        <div class="col">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit"
+                        class="w-100 btn btn-secondary btn-lg"
+                        th:onclick="|location.href='@{/}'|">로그 아웃
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <hr class="my-4">
+</div>
+
+</body>
+</html>

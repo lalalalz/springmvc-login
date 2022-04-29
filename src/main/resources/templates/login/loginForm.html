@@ -39,7 +39,7 @@
             </div>
             <div>
                 <label for="password">비밀번호</label>
-                <input type="text"
+                <input type="password"
                        th:field="*{password}"
                        th:errorclass="field-error"
                        class="form-control">
@@ -52,14 +52,14 @@
         <div class="row">
             <div class="col">
                 <button type="submit"
-                        th:onclick="|location.href=@{'/login'}|"
+                        th:onclick="|location.href='@{/login}'|"
                         class="w-100 btn btn-primary btn-lg">로그인
                 </button>
             </div>
             <div class="col">
                 <button type="button"
                         class="w-100 btn btn-secondary btn-lg"
-                        th:onclick="|location.href=@{'/'}|">취소
+                        th:onclick="|location.href='@{/}'|">취소
                 </button>
             </div>
         </div>
