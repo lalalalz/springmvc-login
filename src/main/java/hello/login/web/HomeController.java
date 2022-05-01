@@ -16,11 +16,6 @@ public class HomeController {
 
     private final MemberRepository memberRepository;
 
-    //    @GetMapping("/")
-    public String home() {
-        return "home";
-    }
-
     @GetMapping("/")
     public String homeLogin(@CookieValue(name = "memberId", required = false) Long memberId, Model model) {
 
