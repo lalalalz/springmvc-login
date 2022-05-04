@@ -10,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -81,7 +79,7 @@ public class LoginController {
         return "redirect:/";
     }
 
-    @PostMapping("/login")
+//    @PostMapping("/login")
     public String loginV3(@Validated @ModelAttribute LoginForm loginForm,
                           BindingResult bindingResult,
                           HttpServletRequest request) {
@@ -104,6 +102,31 @@ public class LoginController {
         session.setAttribute("loginMember", loginMember);
         return "redirect:/";
     }
+
+@PostMapping("/login")
+public String loginV4(@Validated @ModelAttribute LoginForm loginForm,
+                      BindingResult bindingResult,
+                      @RequestParam(defaultValue = "/") String redirectURL,
+                      HttpServletRequest request) {
+
+    // 검증 오류 발생
+    if (bindingResult.hasErrors()) {
+        return "login/loginForm";
+    }
+
+    Member loginMember = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+
+    // 로그인 실패
+    if (loginMember == null) {
+        bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+        return "login/loginForm";
+    }
+
+    // 로그인 성공
+    HttpSession session = request.getSession();
+    session.setAttribute("loginMember", loginMember);
+    return "redirect:" + redirectURL;
+}
 
 //    @PostMapping("/logout")
     public String logout(HttpServletResponse response) {
